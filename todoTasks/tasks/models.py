@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class Category(models.Model):
+  name = models.CharField(max_length=64, verbose_name='Nome')
+  description = models.TextField(verbose_name='Descrição')
