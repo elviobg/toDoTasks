@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>ToDo</title>
+    <title>ToDo List</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
@@ -27,33 +27,18 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>          
+          <li class="nav-item active"><a href="{% url 'url_home' %}" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
+          <li class="nav-item"><a href="{% url 'tasks:url_category_insert' %}" class="nav-link" href="#">Categorias</a></li>
+          <li class="nav-item"><a href="{% url 'tasks:url_task_insert' %}" class="nav-link" href="#">Tarefas</a></li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Procurar" aria-label="Procurar">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Procurar</button>
-        </form>
       </div>
     </nav>
 
-    <main role="main" class="container">
-      <div class="base-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">
-          Use this document as a way to quickly start any new project.
-          <br> 
-          All you get is this text and a mostly barebones HTML document.
-        </p>
-      </div>
-    </main>
+    <div class="container">
+    {% block body %}
+    {% endblock body %}
+    </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
