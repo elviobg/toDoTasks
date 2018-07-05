@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+<div class="row">
+{% block body %}
+  <div>
+    <h1>Lista de Categorias</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Categoria</th>
+          <th>Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}      
+          <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'tasks:url_category_insert' %}" class="btn btn-primary" role="button">Adicionar Categoria</a>
+{% endblock body %}
+</div>
