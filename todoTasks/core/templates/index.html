@@ -23,12 +23,13 @@
             <td>{{ task.final_date }}</td>
             <td>{{ task.get_priority_display }}</td>
             <td>{{ task.category }}</td>
-            <td><a href="{% url 'tasks:url_category_insert' %}" class="btn btn-info" role="button">Editar</a></td>
-            <td><a href="{% url 'tasks:url_category_delete' task.id %}" class="btn btn-danger" role="button">Excluir</a></td>
+            <td><a href="{% url 'tasks:url_task_update' task.id %}" class="btn btn-info" role="button">Editar</a></td>
+            <td><a href="{% url 'tasks:url_task_delete' task.id %}" class="btn btn-danger" role="button">Excluir</a></td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
+    <a href="{% url 'tasks:url_task_insert'%}" class="btn btn-primary" role="button">Inserir nova tarefa</a>
   </div>
 {% endblock body %}
 </div>
