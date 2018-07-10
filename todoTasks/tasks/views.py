@@ -8,7 +8,7 @@ def list_categories(request):
   data['categories'] = Category.objects.all()
   return render(request, 'category/list.html', data)
 
-def new_category(request):
+def create_category(request):
   if request.method == 'POST':
     form = CategoryForm(request.POST)
     if form.is_valid():
@@ -23,12 +23,12 @@ def new_category(request):
   data['form'] = form
   return render(request, 'category/new.html', data)
 
-def new_task(request):
+def create_task(request):
   if request.method == 'POST':
     form = TaskForm(request.POST)
     if form.is_valid():
       form.save()
-      return HttpResponse('Tarefa adicionada com sucesso')
+      return redirect('url_home')
     else:
       print(form.errors)
   else:
@@ -37,3 +37,9 @@ def new_task(request):
   data = {}
   data['form'] = form
   return render(request, 'task/new.html', data)  
+
+def delete_task(request, pk):
+  task = Task.objects.get(id=pk).delete()
+  return redirect('url_home')
+
+#def update_task(request, id):

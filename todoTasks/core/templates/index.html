@@ -12,16 +12,19 @@
           <th>Data Final</th>
           <th>Prioridade</th>
           <th>Categoria</th>
+          <th colspan="2"></th>
         </tr>
       </thead>
       <tbody>
-        {% for task in tasks %}      
+        {% for task in tasks %}
           <tr>
             <td>{{ task.name }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.final_date }}</td>
             <td>{{ task.get_priority_display }}</td>
             <td>{{ task.category }}</td>
+            <td><a href="{% url 'tasks:url_category_insert' %}" class="btn btn-info" role="button">Editar</a></td>
+            <td><a href="{% url 'tasks:url_category_delete' task.id %}" class="btn btn-danger" role="button">Excluir</a></td>
           </tr>
         {% endfor %}
       </tbody>
