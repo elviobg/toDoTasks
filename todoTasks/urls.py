@@ -35,4 +35,5 @@ urlpatterns = [
   path('', home, name='url_home'),  
   path('admin/', admin.site.urls),  
   path('', include('todoTasks.tasks.urls', namespace="tasks_app")),
+  path('', include('todoTasks.accounts.urls', namespace="accounts_app")),
 ]

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     #nossas apps
     'todoTasks.core',
     'todoTasks.tasks',
+    'todoTasks.accounts',
 ]
 
 MIDDLEWARE = [
