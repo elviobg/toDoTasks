@@ -6,6 +6,6 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required
 def home(request):
-  data = {}
-  data['tasks'] = get_list_or_404(Task)
+  data = {}  
+  data['tasks'] = Task.objects.filter(user=request.user)
   return render(request, 'index.html', data)

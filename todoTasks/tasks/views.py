@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .forms import CategoryForm, TaskForm
 from .models import Category, Task
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def list_categories(request):
   data = {}
-  data['categories'] = get_list_or_404(Category)
+  data['categories'] = Category.objects.filter(user=request.user)
   return render(request, 'category/list.html', data)
 
 @login_required
@@ -15,7 +14,9 @@ def create_category(request):
   if request.method == 'POST':
     form = CategoryForm(request.POST)
     if form.is_valid():
-      form.save()      
+      category = form.save(commit=False)
+      category.user = request.user
+      category.save()
       return redirect('tasks:url_category')
     else:
       print(form.errors)
@@ -32,6 +33,9 @@ def create_task(request):
     form = TaskForm(request.POST)
     if form.is_valid():
       form.save()
+      task = form.save(commit=False)
+      task.user = request.user
+      task.save()
       return redirect('url_home')
     else:
       print(form.errors)
@@ -43,14 +47,23 @@ def create_task(request):
   return render(request, 'task/new.html', data)
 
 @login_required
-def delete_task(request, pk):
-  get_object_or_404(Task, pk=pk).delete()
+def delete_task(request, pk):  
+  #Task.objects.filter(pk=pk, user=request.user).delete()
+  task = get_object_or_404(Task, pk=pk, user=request.user)
+  task.delete()
   return redirect('url_home')
 
 @login_required
+def delete_category(request, pk):
+  #Category.objects.filter(pk=pk, user=request.user).delete()
+  category = get_object_or_404(Category, pk=pk, user=request.user)
+  category.delete()
+  return redirect('tasks:url_category')
+
+@login_required
 def update_task(request, pk):
-  task = get_object_or_404(Task, pk=pk)
-  if request.method == 'POST':    
+  task = get_object_or_404(Task, pk=pk, user=request.user)
+  if request.method == 'POST':
     form = TaskForm(request.POST, instance=task)
     if form.is_valid():
       form.save()
@@ -65,14 +78,9 @@ def update_task(request, pk):
   return render(request, 'task/new.html', data)
 
 @login_required
-def delete_category(request, pk):
-  get_object_or_404(Category, pk=pk).delete()
-  return redirect('tasks:url_category')
-
-@login_required
-def update_category(request, pk):
-  category = get_object_or_404(Category, pk=pk)
-  if request.method == 'POST':    
+def update_category(request, pk):  
+  category = get_object_or_404(Category, pk=pk, user=request.user)
+  if request.method == 'POST':
     form = CategoryForm(request.POST, instance=category)
     if form.is_valid():
       form.save()
