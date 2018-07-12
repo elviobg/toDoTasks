@@ -2,12 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.http import HttpResponse
 from .forms import CategoryForm, TaskForm
 from .models import Category, Task
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def list_categories(request):
   data = {}
   data['categories'] = get_list_or_404(Category)
   return render(request, 'category/list.html', data)
 
+@login_required
 def create_category(request):
   if request.method == 'POST':
     form = CategoryForm(request.POST)
@@ -23,6 +26,7 @@ def create_category(request):
   data['form'] = form
   return render(request, 'category/new.html', data)
 
+@login_required
 def create_task(request):
   if request.method == 'POST':
     form = TaskForm(request.POST)
@@ -38,10 +42,12 @@ def create_task(request):
   data['form'] = form
   return render(request, 'task/new.html', data)
 
+@login_required
 def delete_task(request, pk):
   get_object_or_404(Task, pk=pk).delete()
   return redirect('url_home')
 
+@login_required
 def update_task(request, pk):
   task = get_object_or_404(Task, pk=pk)
   if request.method == 'POST':    
@@ -58,10 +64,12 @@ def update_task(request, pk):
   data['form'] = form
   return render(request, 'task/new.html', data)
 
+@login_required
 def delete_category(request, pk):
   get_object_or_404(Category, pk=pk).delete()
   return redirect('tasks:url_category')
 
+@login_required
 def update_category(request, pk):
   category = get_object_or_404(Category, pk=pk)
   if request.method == 'POST':    
