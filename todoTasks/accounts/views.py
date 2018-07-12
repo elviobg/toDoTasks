@@ -26,7 +26,7 @@ def user_login(request):
 
     if user:
       login(request, user)
-      return redirect('url_home')
+      return redirect(request.GET.get('next', '/'))
     else:
       messages.error(request, 'Usuário ou senha inválidos')
   
