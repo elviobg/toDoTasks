@@ -29,6 +29,11 @@
       <input type="text" id="username" name="username" class="form-control" placeholder="Login" required autofocus>
       <label for="password" class="sr-only">Password</label>
       <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>      
+      <div> 
+        Não tem uma conta?
+        <a href="{% url 'accounts:url_user_insert' %}">Crie uma!</a>
+      </div>
+      <br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Logar</button>
     </form>
   </body>
