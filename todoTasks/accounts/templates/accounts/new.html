@@ -22,7 +22,10 @@
               <label for="{{ field.id_for_label }}">{{ field.label }}</label>
               {{ field|add_class:'form-control'}}
               {% for error in field.errors %}
-                <span class="help-block">{{ error }}</span>
+                <br>
+                <div class="alert alert-warning">
+                  {{ error }}
+                </div>
               {% endfor %}
             </div>
           {% endfor %}

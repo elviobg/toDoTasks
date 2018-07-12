@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserForm
 from django.contrib import messages
 
@@ -7,10 +8,8 @@ def add_user(request):
   if request.method == 'POST':
     form = UserForm(request.POST)
     if form.is_valid():
-      user = form.save()
-      user.set_password(user.password)
-      user.save()
-      return HttpResponse('usuario criado')
+      form.save()
+      return redirect('url_home')
   else:
     form = UserForm()
     

@@ -1,11 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
-class UserForm(forms.ModelForm):  
-  password = forms.CharField(widget=forms.PasswordInput(), label="Senha")  
+class UserForm(UserCreationForm):    
   class Meta:
     model = User    
-    fields = ('first_name', 'last_name', 'username', 'password')
+    fields = ('first_name', 'last_name', 'username')
     labels = {
       'first_name': 'Nome', 
       'last_name': 'Sobrenome', 
