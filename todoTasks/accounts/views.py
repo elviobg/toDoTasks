@@ -1,5 +1,7 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth import authenticate, login
 from .forms import UserForm
+from django.contrib import messages
 
 def add_user(request):
   if request.method == 'POST':
@@ -16,4 +18,17 @@ def add_user(request):
   data['form'] = form
   return render(request, 'accounts/new.html', data)
 
+def user_login(request):
+  if request.method == 'POST':
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(username=username, password=password)
+
+    if user:
+      login(request, user)
+      return redirect('url_home')
+    else:
+      messages.error(request, 'Usuário ou senha inválidos')
+  
+  return render(request, 'accounts/login.html')
 
