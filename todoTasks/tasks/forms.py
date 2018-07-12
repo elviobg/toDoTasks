@@ -10,3 +10,8 @@ class TaskForm(ModelForm):
   class Meta:
     model = Task    
     exclude = ('user',)
+
+  def __init__(self, user=None, *args, **kwargs):
+    super(TaskForm, self).__init__(*args, **kwargs)
+    if user is not None:
+      self.fields['category'].queryset = Category.objects.filter(user=user)

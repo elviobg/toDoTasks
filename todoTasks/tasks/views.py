@@ -30,9 +30,8 @@ def create_category(request):
 @login_required
 def create_task(request):
   if request.method == 'POST':
-    form = TaskForm(request.POST)
-    if form.is_valid():
-      form.save()
+    form = TaskForm(user=request.user, data=request.POST)
+    if form.is_valid():      
       task = form.save(commit=False)
       task.user = request.user
       task.save()
@@ -40,7 +39,7 @@ def create_task(request):
     else:
       print(form.errors)
   else:
-    form = TaskForm
+    form = TaskForm(user=request.user)
   
   data = {}
   data['form'] = form
