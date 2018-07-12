@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+<div class="row">
+  {% block body %}
+    <h1>Editar usuário</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field|add_class:'form-control'}}
+          {% for error in field.errors %}
+            <br>
+            <div class="alert alert-warning">
+              {{ error }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Cadastrar</button>
+    </form>
+  {% endblock body %}
+</div>

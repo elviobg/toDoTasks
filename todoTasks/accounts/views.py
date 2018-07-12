@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserForm
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 def add_user(request):
   if request.method == 'POST':
     form = UserForm(request.POST)
-    if form.is_valid():
+    if form.is_valid():      
       form.save()
       return redirect('url_home')
   else:
@@ -34,3 +34,17 @@ def user_login(request):
 def user_logout(request):
   logout(request)
   return redirect('accounts:url_user_login')
+
+def user_edit(request):
+  if request.method == 'POST':
+    formPassword = PasswordChangeForm(request.user, request.POST)
+    if formPassword.is_valid():
+      user = formPassword.save()
+      update_session_auth_hash(request, user)
+      messages.success(request, "Senha alterada com sucesso!")        
+  else:
+    formPassword = PasswordChangeForm(request.user)    
+
+  data = {}
+  data['form'] = formPassword  
+  return render(request, 'accounts/edit.html', data)
