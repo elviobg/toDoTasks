@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
         <label for="{{ form.final_date.id_for_label}}">Data final</label>
-        {{ form.final_date | add_class:"form-control" }}
+        {{ form.final_date | attr:"type:date" | add_class:"form-control" }}
         </div>
       <div class="form-group">
         <label for="{{ form.priority.id_for_label}}">Prioridade</label>

@@ -61,16 +61,16 @@ def delete_category(request, pk):
 
 @login_required
 def update_task(request, pk):
-  task = get_object_or_404(Task, pk=pk, user=request.user)
-  if request.method == 'POST':
-    form = TaskForm(request.POST, instance=task)
+  task = get_object_or_404(Task, pk=pk, user=request.user)  
+  if request.method == 'POST':    
+    form = TaskForm(user=request.user, data=request.POST, instance=task)
     if form.is_valid():
       form.save()
       return redirect('url_home')
     else:
       print(form.errors)
   else:
-    form = TaskForm(instance=task)
+    form = TaskForm(user=request.user, instance=task)
 
   data = {}
   data['form'] = form
