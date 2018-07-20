@@ -18,10 +18,10 @@ class Task(models.Model):
     ('M', 'Média'),
     ('B', 'Baixa')
   )
-    
+
   name = models.CharField(max_length=64, verbose_name='Nome')
   description = models.TextField(verbose_name='Descrição', blank=True)
-  final_date = models.DateTimeField(verbose_name='Data final')
+  final_date = models.DateField(verbose_name='Data final')
   priority = models.CharField(max_length=1, verbose_name='Prioridade', choices=PRIORITY_CHOICES)
   category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Categoria')
   user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuário')

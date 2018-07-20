@@ -7,8 +7,8 @@ class CategoryForm(ModelForm):
     exclude = ('user',)
 
 class TaskForm(ModelForm):    
-  class Meta:
-    model = Task    
+  class Meta:    
+    model = Task
     exclude = ('user',)
 
   def __init__(self, user=None, *args, **kwargs):
